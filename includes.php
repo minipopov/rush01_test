@@ -22,3 +22,14 @@ include_once $_SERVER['DOCUMENT_ROOT']."/core/input.class.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/core/matrice.class.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/core/player.class.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/core/master.class.php";
+
+/*
+**	Ship
+*/
+
+include_once $_SERVER['DOCUMENT_ROOT']."/core/gameobject/anaconda.class.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/core/gameobject/clipper.class.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/core/gameobject/destroyer.class.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/core/gameobject/falcon.class.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/core/gameobject/python.class.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/core/gameobject/unknown.class.php";

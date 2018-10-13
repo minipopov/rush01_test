@@ -52,9 +52,7 @@ class Map
 		{
 			$html .= "<tr>";
 			for ($col=0; $col < 150; $col++)
-			{
 				$html .= $this->cases[$line][$col];
-			}
 			$html .= "</tr>";
 		}
 		$html .= "</table>";

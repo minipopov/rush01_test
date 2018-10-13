@@ -45,24 +45,26 @@ abstract class Matrice
 		{
 			$add = count($mat[0]) / 2;
 			$mat = Matrice::rot270($mat);
-			$add2 = $add - count($mat[0]) / 2;
+			$add2 = floor($add - count($mat[0]) / 2);
 			$tmp = $ship->width;
 			$ship->width = $ship->height + $add2;
 			$ship->height = $tmp;
-			foreach ($mat as $k => $line)
-				array_unshift($mat[$k], ...array_fill(0, $add2, 0));
+			if ($add2 > 1)
+				foreach ($mat as $k => $line)
+					array_unshift($mat[$k], ...array_fill(0, $add2, 0));
 			return $mat;
 		}
 		else if ($orientation == Ship::BOTTOM)
 		{
 			$add = count($mat[0]) / 2;
 			$mat = Matrice::rot90($mat);
-			$add2 = $add - count($mat[0]) / 2;
+			$add2 = floor($add - count($mat[0]) / 2);
 			$tmp = $ship->width;
 			$ship->width = $ship->height + $add2;
 			$ship->height = $tmp;
-			foreach ($mat as $k => $line)
-				array_unshift($mat[$k], ...array_fill(0, $add2, 0));
+			if ($add2 > 1)
+				foreach ($mat as $k => $line)
+					array_unshift($mat[$k], ...array_fill(0, $add2, 0));
 			return $mat;
 		}
 		else if ($orientation == Ship::LEFT)

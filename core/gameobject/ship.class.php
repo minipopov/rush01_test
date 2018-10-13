@@ -2,13 +2,9 @@
 /**
  * Ship
  */
-class Ship implements Igameobject, Imove, Ishot, Icollider
+abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 {
 	public static $debug = False;
-	const	SHIP_TEXTURE = [
-		"/img/ships/ship.png",
-		"/img/ships/ship.png"
-	];
 
 	const	RIGHT = 0;
 	const	TOP = 1;
@@ -19,16 +15,6 @@ class Ship implements Igameobject, Imove, Ishot, Icollider
 	public $y;
 	public $dir;
 	public $type;
-	private $size = [110, 50];
-	public $height = 5;
-	public $width = 11;
-	public $collider = [
-		[0,1,1,1,1,1,1,0,0,0,0],
-		[1,1,1,1,1,1,1,1,1,1,0],
-		[1,1,1,1,1,1,1,1,1,1,1],
-		[1,1,1,1,1,1,1,1,1,1,0],
-		[0,1,1,1,1,1,1,0,0,0,0]
-	];
 
 	function __construct($data)
 	{
@@ -37,27 +23,19 @@ class Ship implements Igameobject, Imove, Ishot, Icollider
 		$this->dir = $data["direction"];
 		$this->type = $data["type"];
 		$this->collider = Matrice::shipTransform($this);
-		// foreach ($this->collider as $key => $value) {
-		// 	foreach ($value as $k => $v) {
-		// 		echo $v;
-		// 	}
-		// 	echo "<br>";
-		// }
 	}
 
 	public function exportCollider(&$cases)
 	{
 		for ($line=0; $line < $this->height; $line++)
 			for ($col=0; $col < $this->width; $col++)
-		{
-			if ($this->collider[$line][$col] == 1)
-				$cases[$this->y + $line][$this->x + $col]->setRef($this);
-		}
+				if ($this->collider[$line][$col] == 1)
+					$cases[$this->y + $line][$this->x + $col]->setRef($this);
 	}
 
 	public function onCollider($gameobject)
 	{
-		// code...
+
 	}
 
 	public function getPos()
@@ -90,16 +68,19 @@ class Ship implements Igameobject, Imove, Ishot, Icollider
 					$this->size[0],
 					$this->size[1],
 					$this->y * Map::CASE_HEIGHT,
-					Ship::SHIP_TEXTURE[$this->type]
+					$this->texture
 				);
 				break;
 			case Ship::TOP:
+				$dec = 0;
+				if ($this->height != $this->width)
+					$dec = $this->size[1] / 2;
 				return sprintf("
 					<img class=\"ship ship-top\" style=\"width:%dpx; height:%dpx; top:%dpx; left:0px;\" src=\"%s\" />",
 					$this->size[0],
 					$this->size[1],
-					($this->y * Map::CASE_HEIGHT) + 1 + $this->size[1] / 2,
-					Ship::SHIP_TEXTURE[$this->type]
+					($this->y * Map::CASE_HEIGHT) + $dec,
+					$this->texture
 				);
 				break ;
 			case Ship::LEFT:
@@ -108,16 +89,19 @@ class Ship implements Igameobject, Imove, Ishot, Icollider
 					$this->size[0],
 					$this->size[1],
 					($this->y * Map::CASE_HEIGHT),
-					Ship::SHIP_TEXTURE[$this->type]
+					$this->texture
 				);
 				break ;
 			case Ship::BOTTOM:
+				$dec = 0;
+				if ($this->height != $this->width)
+					$dec = $this->size[1] / 2;
 				return sprintf("
 					<img class=\"ship ship-bottom\" style=\"width:%dpx; height:%dpx; top:%dpx; left:0px;\" src=\"%s\" />",
 					$this->size[0],
 					$this->size[1],
-					($this->y * Map::CASE_HEIGHT) + 1 + $this->size[1] / 2,
-					Ship::SHIP_TEXTURE[$this->type]
+					($this->y * Map::CASE_HEIGHT) + $dec,
+					$this->texture
 				);
 				break ;
 			default:

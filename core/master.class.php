@@ -45,7 +45,31 @@ class Master
 		$this->_ships = [];
 		$ships = $this->_model->select("ships");
 		foreach ($ships as $key => $value)
-			$this->_ships[] = new Ship($value);
+		{
+			switch ($value["type"]) {
+				case 0:
+					$this->_ships[] = new Anaconda($value);
+					break;
+				case 1:
+					$this->_ships[] = new Clipper($value);
+					break;
+				case 2:
+					$this->_ships[] = new Destroyer($value);
+					break;
+				case 3:
+					$this->_ships[] = new Falcon($value);
+					break;
+				case 4:
+					$this->_ships[] = new Python($value);
+					break;
+				case 5:
+					$this->_ships[] = new Unknown($value);
+					break;
+				default:
+					throw new \Exception("Unknow ship id ".$value['type'], 1);
+					break;
+			}
+		}
 	}
 
 	public function importRocks()

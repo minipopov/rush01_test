@@ -23,10 +23,9 @@ class Mapcase
 			$class = get_class($this->obj);
 			if ($class == "Rock")
 				return strval($this->obj);
-			else if ($class = "Ship" && Ship::$debug == true)
-			{
+			else if (($class = "Ship" && Ship::$debug == true)
+				|| (get_parent_class($this->obj) == "Ship" && Ship::$debug == true))
 				return sprintf("<td class=\"collider\"></td>");
-			}
 			else
 				return "<td></td>";
 		}
