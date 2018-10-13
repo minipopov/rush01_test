@@ -48,6 +48,9 @@ html, body{
 /*
 **	Rock
 */
+.collider{
+	background-image: url("/img/map/collider.png");
+}
 
 .stone{
 	background-image: url("/img/map/stone.png");

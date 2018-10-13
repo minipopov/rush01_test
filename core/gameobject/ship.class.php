@@ -2,8 +2,9 @@
 /**
  * Ship
  */
-class Ship implements Igameobject, Imove, Ishot
+class Ship implements Igameobject, Imove, Ishot, Icollider
 {
+	public static $debug = False;
 	const	SHIP_TEXTURE = [
 		"/img/ships/ship.png",
 		"/img/ships/ship.png"
@@ -14,17 +15,49 @@ class Ship implements Igameobject, Imove, Ishot
 	const	LEFT = 2;
 	const	BOTTOM = 3;
 
-	private $_x;
-	private $_y;
-	private $_dir;
-	private $_type;
+	public $x;
+	public $y;
+	public $dir;
+	public $type;
+	private $size = [110, 50];
+	public $height = 5;
+	public $width = 11;
+	public $collider = [
+		[0,1,1,1,1,1,1,0,0,0,0],
+		[1,1,1,1,1,1,1,1,1,1,0],
+		[1,1,1,1,1,1,1,1,1,1,1],
+		[1,1,1,1,1,1,1,1,1,1,0],
+		[0,1,1,1,1,1,1,0,0,0,0]
+	];
 
 	function __construct($data)
 	{
-		$this->_x = $data["x"];
-		$this->_y = $data["y"];
-		$this->_dir = $data["direction"];
-		$this->_type = $data["type"];
+		$this->x = $data["x"];
+		$this->y = $data["y"];
+		$this->dir = $data["direction"];
+		$this->type = $data["type"];
+		$this->collider = Matrice::shipTransform($this);
+		// foreach ($this->collider as $key => $value) {
+		// 	foreach ($value as $k => $v) {
+		// 		echo $v;
+		// 	}
+		// 	echo "<br>";
+		// }
+	}
+
+	public function exportCollider(&$cases)
+	{
+		for ($line=0; $line < $this->height; $line++)
+			for ($col=0; $col < $this->width; $col++)
+		{
+			if ($this->collider[$line][$col] == 1)
+				$cases[$this->y + $line][$this->x + $col]->setRef($this);
+		}
+	}
+
+	public function onCollider($gameobject)
+	{
+		// code...
 	}
 
 	public function getPos()
@@ -49,34 +82,42 @@ class Ship implements Igameobject, Imove, Ishot
 
 	public function __toString()
 	{
-		switch ($this->_dir)
+		switch ($this->dir)
 		{
 			case Ship::RIGHT:
 				return sprintf("
-					<img class=\"ship ship-right\" style=\"width:100px; height:50px; top:%dpx; left:0px;\" src=\"%s\" />",
-					$this->_y * Map::CASE_WIDTH,
-					Ship::SHIP_TEXTURE[$this->_type]
+					<img class=\"ship ship-right\" style=\"width:%dpx; height:%dpx; top:%dpx; left:0px;\" src=\"%s\" />",
+					$this->size[0],
+					$this->size[1],
+					$this->y * Map::CASE_HEIGHT,
+					Ship::SHIP_TEXTURE[$this->type]
 				);
 				break;
 			case Ship::TOP:
 				return sprintf("
-					<img class=\"ship ship-top\" style=\"width:100px; height:50px; top:%dpx; left:0px;\" src=\"%s\" />",
-					$this->_y * Map::CASE_WIDTH,
-					Ship::SHIP_TEXTURE[$this->_type]
+					<img class=\"ship ship-top\" style=\"width:%dpx; height:%dpx; top:%dpx; left:0px;\" src=\"%s\" />",
+					$this->size[0],
+					$this->size[1],
+					($this->y * Map::CASE_HEIGHT) + 1 + $this->size[1] / 2,
+					Ship::SHIP_TEXTURE[$this->type]
 				);
 				break ;
 			case Ship::LEFT:
 				return sprintf("
-					<img class=\"ship ship-left\" style=\"width:100px; height:50px; top:%dpx; left:0px;\" src=\"%s\" />",
-					$this->_y * Map::CASE_WIDTH,
-					Ship::SHIP_TEXTURE[$this->_type]
+					<img class=\"ship ship-left\" style=\"width:%dpx; height:%dpx; top:%dpx; left:0px;\" src=\"%s\" />",
+					$this->size[0],
+					$this->size[1],
+					($this->y * Map::CASE_HEIGHT),
+					Ship::SHIP_TEXTURE[$this->type]
 				);
 				break ;
 			case Ship::BOTTOM:
 				return sprintf("
-					<img class=\"ship ship-bottom\" style=\"width:100px; height:50px; top:%dpx; left:0px;\" src=\"%s\" />",
-					$this->_y * Map::CASE_WIDTH,
-					Ship::SHIP_TEXTURE[$this->_type]
+					<img class=\"ship ship-bottom\" style=\"width:%dpx; height:%dpx; top:%dpx; left:0px;\" src=\"%s\" />",
+					$this->size[0],
+					$this->size[1],
+					($this->y * Map::CASE_HEIGHT) + 1 + $this->size[1] / 2,
+					Ship::SHIP_TEXTURE[$this->type]
 				);
 				break ;
 			default:

@@ -27,15 +27,6 @@ class Input
 
 	public function dispatch()
 	{
-		switch ($this->_data->action) {
-			case 'move':
-				// code...
-				break;
-
-			default:
-				// code...
-				break;
-		}
 		// echo "dispatch event";
 	}
 }

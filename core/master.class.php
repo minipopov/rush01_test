@@ -17,7 +17,7 @@ class Master
 	{
 		$this->id_game = $gameId;
 		$this->_model = new Model();
-		$this->spawn = new Spawn($this->_model, $this->id_game);
+		$this->_spawn = new Spawn($this->_model, $this->id_game);
 		$this->importPlayers();
 		$this->_input = new Input($this->_model, $this->_ships, $this->_rocks);
 		//detection des fin de tour destruction etc...
@@ -45,9 +45,7 @@ class Master
 		$this->_ships = [];
 		$ships = $this->_model->select("ships");
 		foreach ($ships as $key => $value)
-		{
 			$this->_ships[] = new Ship($value);
-		}
 	}
 
 	public function importRocks()
@@ -55,7 +53,9 @@ class Master
 		$this->_rocks = [];
 		$rocks = $this->_model->select("rocks");
 		foreach ($rocks as $key => $value)
-			$this->_rocks[$value["y"]][$value["x"]] = new Rock($value);
+		{
+			$this->_rocks[] = new Rock($value);
+		}
 	}
 
 	public function importPlayers()

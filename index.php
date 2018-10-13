@@ -10,8 +10,10 @@
 include_once "includes.php";
 
 $master = new Master(1);
-$master->spawn->spawnShip(1, 1);
-// $master->spawn->generateRandomRocks(1000, 10, 100);
+// Rock::$debug = True;
+// Ship::$debug = True;
+// 	$master->spawnShip(1, 1);
+// $master->_spawn->generateRandomRocks(100, 10, 100);
 echo $master->execRender();
 ?>
 </body>
