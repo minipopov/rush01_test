@@ -4,9 +4,7 @@
  */
 class ControllerShot extends Controller
 {
-
 	function __construct()
 	{
-		// code...
 	}
 }

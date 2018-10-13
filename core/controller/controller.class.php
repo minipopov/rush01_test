@@ -10,4 +10,14 @@ abstract class Controller
 	{
 		$this->_model = $model;
 	}
+
+	protected function is_implements($object, $interface)
+	{
+		$arr = class_implements($object);
+		foreach ($arr as $value) {
+			if ($value == $interface)
+				return (True);
+		}
+		return (False);
+	}
 }

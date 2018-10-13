@@ -1,0 +1,54 @@
+html, body{
+	margin:0;
+	padding:0;
+}
+
+/*
+**	Ship
+*/
+
+.ship{
+	position: absolute;
+}
+
+.ship-right{
+	transform: rotate(0deg)
+}
+
+.ship-top{
+	transform: rotate(270deg)
+}
+
+.ship-bottom{
+	transform: rotate(90deg)
+}
+
+.ship-left{
+	transform: rotate(180deg)
+}
+
+/*
+**	Css map
+*/
+
+.map{
+	background-color: black;
+	width: 1500px;
+	height: 1000px;
+	border-collapse: collapse
+}
+.map tr{
+	border-collapse: collapse
+}
+.map tr td{
+	border-collapse: collapse;
+	border: 1px solid rgba(100,100,100,0.3);
+}
+
+/*
+**	Rock
+*/
+
+.stone{
+	background-image: url("/img/map/stone.png");
+}

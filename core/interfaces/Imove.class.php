@@ -4,5 +4,6 @@
  */
 interface Imove
 {
-	abstract function move();
+	public function getPos();
+	public function move();
 }

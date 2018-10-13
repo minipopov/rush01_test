@@ -4,5 +4,5 @@
  */
 interface Igameobject
 {
-	abstract private function update();
+	public function update();
 }
