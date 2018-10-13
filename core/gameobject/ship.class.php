@@ -45,7 +45,7 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 
 	public function move()
 	{
-
+		
 	}
 
 	public function shoot()
@@ -64,10 +64,11 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 		{
 			case Ship::RIGHT:
 				return sprintf("
-					<img class=\"ship ship-right\" style=\"width:%dpx; height:%dpx; top:%dpx; left:0px;\" src=\"%s\" />",
+					<img class=\"ship ship-right\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />",
 					$this->size[0],
 					$this->size[1],
-					$this->y * Map::CASE_HEIGHT,
+					($this->y * Map::CASE_HEIGHT),
+					($this->x * Map::CASE_WIDTH),
 					$this->texture
 				);
 				break;
@@ -76,19 +77,21 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 				if ($this->height != $this->width)
 					$dec = $this->size[1] / 2;
 				return sprintf("
-					<img class=\"ship ship-top\" style=\"width:%dpx; height:%dpx; top:%dpx; left:0px;\" src=\"%s\" />",
+					<img class=\"ship ship-top\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />",
 					$this->size[0],
 					$this->size[1],
 					($this->y * Map::CASE_HEIGHT) + $dec,
+					($this->x * Map::CASE_WIDTH),
 					$this->texture
 				);
 				break ;
 			case Ship::LEFT:
 				return sprintf("
-					<img class=\"ship ship-left\" style=\"width:%dpx; height:%dpx; top:%dpx; left:0px;\" src=\"%s\" />",
+					<img class=\"ship ship-left\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />",
 					$this->size[0],
 					$this->size[1],
 					($this->y * Map::CASE_HEIGHT),
+					($this->x * Map::CASE_WIDTH),
 					$this->texture
 				);
 				break ;
@@ -97,10 +100,11 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 				if ($this->height != $this->width)
 					$dec = $this->size[1] / 2;
 				return sprintf("
-					<img class=\"ship ship-bottom\" style=\"width:%dpx; height:%dpx; top:%dpx; left:0px;\" src=\"%s\" />",
+					<img class=\"ship ship-bottom\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />",
 					$this->size[0],
 					$this->size[1],
 					($this->y * Map::CASE_HEIGHT) + $dec,
+					($this->x * Map::CASE_WIDTH),
 					$this->texture
 				);
 				break ;
