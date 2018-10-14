@@ -1,12 +1,23 @@
 <?php
 
+/*
+**	interfaces
+*/
+
 include_once $_SERVER['DOCUMENT_ROOT']."/core/interfaces/Igameobject.class.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/core/interfaces/Imove.class.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/core/interfaces/Ishot.class.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/core/interfaces/Icollider.class.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/core/interfaces/Ipp.class.php";
+
+/*
+**	Controller
+*/
 
 include_once $_SERVER['DOCUMENT_ROOT']."/core/controller/controller.class.php";
-include_once $_SERVER['DOCUMENT_ROOT']."/core/controller/move.class.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/core/controller/movecontroller.class.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/core/controller/ppcontroller.class.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/core/controller/dicecontroller.class.php";
 
 include_once $_SERVER['DOCUMENT_ROOT']."/core/gameobject/rock.class.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/core/gameobject/ship.class.php";

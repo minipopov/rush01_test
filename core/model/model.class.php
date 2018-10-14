@@ -28,7 +28,7 @@ class Model
 	 *
 	 *	@return	True/false
 	 */
-	function    db_update($table, $value, $cond)
+	function    update($table, $value, $cond)
 	{
 		$this->db_format_cond($value, $arr, $arrval);
 		$arr = implode(",", $arr);

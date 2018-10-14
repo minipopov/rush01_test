@@ -27,6 +27,13 @@ html, body{
 	transform: rotate(180deg)
 }
 
+.main-grid{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: inline-grid;
+	grid-template-columns: 1fr 1fr;
+}
 /*
 **	Css map
 */
@@ -54,4 +61,50 @@ html, body{
 
 .stone{
 	background-image: url("/img/map/stone.png");
+}
+
+/*
+**	Panel
+*/
+
+.panel{
+	left: 1500px;
+	top: 0px;
+	background-color: grey;
+	height: 100%;
+}
+
+.panel h5{
+	padding: 30px;
+	border-bottom: 1px solid white;
+}
+
+.panel form p{
+	display: grid;
+	width: 80%;
+	margin: auto;
+	grid-template-columns: 2;
+}
+
+.top-line{
+	width: 80%;
+	margin: auto;
+	padding-top: 30px;
+	border-top: 1px solid white;
+}
+
+.btn-img img{
+	width: 6vmin;
+	height: 6vmin;
+	border: 2px solid blue;
+}
+.btn-img{
+	background-color: transparent;
+    border: transparent;
+}
+
+.panel-btn{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-auto-rows: 1fr 1fr 1fr;
 }

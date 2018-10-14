@@ -2,7 +2,7 @@
 /**
  * Ship
  */
-abstract class Ship implements Igameobject, Imove, Ishot, Icollider
+abstract class Ship implements Igameobject, Imove, Ishot, Icollider, Ipp
 {
 	public static $debug = False;
 
@@ -11,17 +11,21 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 	const	LEFT = 2;
 	const	BOTTOM = 3;
 
+	public $id;
 	public $x;
 	public $y;
-	public $dir;
+	public $direction;
 	public $type;
+	public $master;
+	public $pp;
 
-	function __construct($data)
+	function __construct($master, $data)
 	{
-		$this->x = $data["x"];
-		$this->y = $data["y"];
-		$this->dir = $data["direction"];
-		$this->type = $data["type"];
+		$this->master = $master;
+		$this->id = $data["id"];
+		foreach ($data as $key => $value) {
+			$this->$key = $value;
+		}
 		$this->collider = Matrice::shipTransform($this);
 	}
 
@@ -38,6 +42,16 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 
 	}
 
+	public function getPPState()
+	{
+		return [
+			'hull'	=>	$this->hull,
+			'shield'	=>	$this->shield,
+			'move'	=>	$this->move,
+			'power'	=>	$this->power
+		];
+	}
+
 	public function getPos()
 	{
 
@@ -45,7 +59,7 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 
 	public function move()
 	{
-		
+
 	}
 
 	public function shoot()
@@ -55,16 +69,35 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 
 	public function update()
 	{
-
+		$this->master->model->update("ships", [
+			"x"			=>	$this->x,
+			"y"			=>	$this->y,
+			"direction"	=>	$this->direction,
+			"dice"		=>	$this->dice,
+			"pp"		=>	$this->pp,
+			"hull"		=>	$this->hull,
+			"move"		=>	$this->move,
+			"shield"	=>	$this->shield,
+			"power"		=>	$this->power,
+			"shoot"		=>	$this->shoot,
+			"available"	=>	$this->available,
+			"has_shoot"	=>	$this->has_shoot
+		],[
+			"id"	=>	$this->id
+		]);
 	}
 
 	public function __toString()
 	{
-		switch ($this->dir)
+		switch ($this->direction)
 		{
 			case Ship::RIGHT:
-				return sprintf("
-					<img class=\"ship ship-right\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />",
+				return sprintf("<a href='/?action=%s&id_ship=%d&id_game=%d'>
+					<img class=\"ship ship-right\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />
+					</a>",
+					$this->master->action,
+					$this->id,
+					$this->master->id_game,
 					$this->size[0],
 					$this->size[1],
 					($this->y * Map::CASE_HEIGHT),
@@ -76,8 +109,12 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 				$dec = 0;
 				if ($this->height != $this->width)
 					$dec = $this->size[1] / 2;
-				return sprintf("
-					<img class=\"ship ship-top\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />",
+				return sprintf("<a href='/?action=%s&id_ship=%d&id_game=%d'>
+					<img class=\"ship ship-top\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />
+					</a>",
+					$this->master->action,
+					$this->id,
+					$this->master->id_game,
 					$this->size[0],
 					$this->size[1],
 					($this->y * Map::CASE_HEIGHT) + $dec,
@@ -86,8 +123,12 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 				);
 				break ;
 			case Ship::LEFT:
-				return sprintf("
-					<img class=\"ship ship-left\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />",
+				return sprintf("<a href='/?action=%s&id_ship=%d&id_game=%d'>
+					<img class=\"ship ship-left\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />
+					</a>",
+					$this->master->action,
+					$this->id,
+					$this->master->id_game,
 					$this->size[0],
 					$this->size[1],
 					($this->y * Map::CASE_HEIGHT),
@@ -99,8 +140,12 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider
 				$dec = 0;
 				if ($this->height != $this->width)
 					$dec = $this->size[1] / 2;
-				return sprintf("
-					<img class=\"ship ship-bottom\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />",
+				return sprintf("<a href='/?action=%s&id_ship=%d&id_game=%d'>
+					<img class=\"ship ship-bottom\" style=\"width:%dpx; height:%dpx; top:%dpx; left:%dpx;\" src=\"%s\" />
+					</a>",
+					$this->master->action,
+					$this->id,
+					$this->master->id_game,
 					$this->size[0],
 					$this->size[1],
 					($this->y * Map::CASE_HEIGHT) + $dec,

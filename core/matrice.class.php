@@ -39,7 +39,7 @@ abstract class Matrice
 
 	public function shipTransform($ship)
 	{
-		$orientation = $ship->dir;
+		$orientation = $ship->direction;
 		$mat = $ship->collider;
 		if ($orientation == Ship::TOP)
 		{

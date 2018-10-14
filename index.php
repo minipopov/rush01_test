@@ -2,19 +2,34 @@
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/style/style.css">
 		<title></title>
 	</head>
 	<body>
-<?php
-include_once "includes.php";
-
-$master = new Master(1);
-// Rock::$debug = True;
-// Ship::$debug = True;
-// 	$master->spawnShip(1, 1);
-// $master->_spawn->generateRandomRocks(100, 10, 100);
-echo $master->execRender();
-?>
-</body>
+		<div class="main-grid">
+			<div class="">
+			<?php
+			include_once "includes.php";
+			$master = new Master(1);
+			echo $master->execRender();
+			?>
+			</div>
+			<div>
+				<?php
+					switch ($master->action) {
+						case 'dice':
+							include_once "dice_panel.php";
+							break;
+						case 'action':
+							include_once "action_panel.php";
+							break;
+						default:
+							// code...
+							break;
+					}
+				?>
+			</div>
+		</div>
+	</body>
 </html>
