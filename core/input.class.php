@@ -82,10 +82,12 @@ class Input
 					"id"				=>	$data->id_game
 				]);
 				break;
-			case 'shoot':
+			case 'fire':
+				$shot_controller = new ShotController($this->_model);
+				$shot_controller->shoot($ship);
 				break;
 			case 'usepp':
-				$pp_control = new PPController($ship, $this->_model);
+				$pp_control = new PPController($this->_model);
 				$pp_control->modifypp($ship, $data);
 				break;
 			case 'endpp':

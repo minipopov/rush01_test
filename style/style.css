@@ -1,6 +1,7 @@
 html, body{
 	margin:0;
 	padding:0;
+	background-color: white;
 }
 
 /*
@@ -39,7 +40,8 @@ html, body{
 */
 
 .map{
-	background-color: black;
+	background-image: url("/img/bgmap.jpg");
+	background-size: 1500px 1000px;
 	width: 1500px;
 	height: 1000px;
 	border-collapse: collapse
@@ -49,7 +51,7 @@ html, body{
 }
 .map tr td{
 	border-collapse: collapse;
-	border: 1px solid rgba(100,100,100,0.3);
+	border: 1px solid rgba(100,100,100,0.25);
 }
 
 /*
@@ -63,15 +65,36 @@ html, body{
 	background-image: url("/img/map/stone.png");
 }
 
+.boom{
+	background-image: url("/img/map/boom.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+    background-position: center center;
+}
+
 /*
 **	Panel
 */
+p, h1, h2, h3, h4, h5, h6{
+	color: white;
+}
 
 .panel{
 	left: 1500px;
 	top: 0px;
-	background-color: grey;
+
+	background-color: #0f0f0f;
+	background-image: url("https://www.transparenttextures.com/patterns/gplay.png");
+	/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+	/* border-image: url("http://www.fammsrl.it/wp-content/uploads/2018/06/punzonatrici.jpg", 50, round); */
 	height: 100%;
+}
+
+.sidebar{
+	position:absolute;
+	width:1vmin;
+	min-height:100%;
+	background-image: url("https://images.pexels.com/photos/35543/grid-wire-mesh-stainless-rods-rods-raster.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
 }
 
 .panel h5{

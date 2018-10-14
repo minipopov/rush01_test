@@ -4,5 +4,6 @@
  */
 interface Igameobject
 {
+	public function onShoot($shot);
 	public function update();
 }

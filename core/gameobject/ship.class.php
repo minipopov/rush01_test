@@ -2,7 +2,7 @@
 /**
  * Ship
  */
-abstract class Ship implements Igameobject, Imove, Ishot, Icollider, Ipp
+abstract class Ship implements Igameobject, Imove, Ishoot, Icollider, Ipp
 {
 	public static $debug = False;
 
@@ -14,18 +14,20 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider, Ipp
 	public $id;
 	public $x;
 	public $y;
+	public $destroy;
 	public $direction;
 	public $type;
 	public $master;
+	public $dmg_weapon = 10;
+	public $porte_weapon = 10;
 	public $pp;
 
 	function __construct($master, $data)
 	{
 		$this->master = $master;
 		$this->id = $data["id"];
-		foreach ($data as $key => $value) {
+		foreach ($data as $key => $value)
 			$this->$key = $value;
-		}
 		$this->collider = Matrice::shipTransform($this);
 	}
 
@@ -62,6 +64,25 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider, Ipp
 
 	}
 
+	public function onShoot($shot)
+	{
+		$this->shield -= $shot["dmg"];
+		$shot["dmg"] = 0;
+		if ($this->shield < 0)
+		{
+			$shot["dmg"] = -$this->shield;
+			$this->shield = 0;
+		}
+		if ($shot["dmg"] > 0)
+		{
+			$this->hull -= $shot["dmg"];
+			if ($this->hull <= 0)
+				return (true);
+			else
+				return (False);
+		}
+	}
+
 	public function shoot()
 	{
 
@@ -69,26 +90,46 @@ abstract class Ship implements Igameobject, Imove, Ishot, Icollider, Ipp
 
 	public function update()
 	{
-		$this->master->model->update("ships", [
-			"x"			=>	$this->x,
-			"y"			=>	$this->y,
-			"direction"	=>	$this->direction,
-			"dice"		=>	$this->dice,
-			"pp"		=>	$this->pp,
-			"hull"		=>	$this->hull,
-			"move"		=>	$this->move,
-			"shield"	=>	$this->shield,
-			"power"		=>	$this->power,
-			"shoot"		=>	$this->shoot,
-			"available"	=>	$this->available,
-			"has_shoot"	=>	$this->has_shoot
-		],[
-			"id"	=>	$this->id
-		]);
+		if ($this->destroy)
+		{
+			$this->master->model->delete("ships",[
+				"id"	=>	$this->id
+			]);
+			if ($this->master->current_ship == $this->id)
+			{
+				$this->master->update("master", [
+					"current_ship"	=>	0,
+					"action"		=>	"none"
+				],[
+					"id"	=>	$this->master->id_game
+				]);
+			}
+		}
+		else
+		{
+			$this->master->model->update("ships", [
+				"x"			=>	$this->x,
+				"y"			=>	$this->y,
+				"direction"	=>	$this->direction,
+				"dice"		=>	$this->dice,
+				"pp"		=>	$this->pp,
+				"hull"		=>	$this->hull,
+				"move"		=>	$this->move,
+				"shield"	=>	$this->shield,
+				"power"		=>	$this->power,
+				"shoot"		=>	$this->shoot,
+				"available"	=>	$this->available,
+				"has_shoot"	=>	$this->has_shoot
+			],[
+				"id"	=>	$this->id
+			]);
+		}
 	}
 
 	public function __toString()
 	{
+		if ($this->destroy == true)
+			$this->texture = "/img/map/boom.png";
 		switch ($this->direction)
 		{
 			case Ship::RIGHT:

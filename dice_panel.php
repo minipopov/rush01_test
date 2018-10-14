@@ -52,6 +52,8 @@ $ship = $master->GetShipInstance();
 			<input type="hidden" name="action" value="usepp">
 			<button type="submit" class="btn btn-info">Utiliser</button>
 		</p>
+	</form>
+	<form class="" action="/" method="GET">
 		<p>
 			<br>
 			<br>

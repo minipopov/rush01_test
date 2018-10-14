@@ -17,6 +17,8 @@ class Anaconda extends Ship
 	public $height = 5;
 	public $width = 11;
 	public $type = 0;
+	public $dmg_weapon = 10;
+	public $porte_weapon = 10;
 	public $texture = "/img/ships/anaconda.png";
 	public $collider = [
 		[0,1,1,1,1,1,1,0,0,0,0],

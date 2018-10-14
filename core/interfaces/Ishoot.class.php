@@ -2,8 +2,7 @@
 /**
  *
  */
-interface Ishot
+interface Ishoot
 {
-	// code...
 	public function shoot();
 }

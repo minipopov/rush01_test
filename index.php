@@ -11,11 +11,14 @@
 			<div class="">
 			<?php
 			include_once "includes.php";
+			// Ship::$debug = true;
 			$master = new Master(1);
+
 			echo $master->execRender();
 			?>
 			</div>
 			<div>
+				<div class="sidebar"></div>
 				<?php
 					switch ($master->action) {
 						case 'dice':
@@ -25,7 +28,7 @@
 							include_once "action_panel.php";
 							break;
 						default:
-							// code...
+							include_once "pick_panel.php";
 							break;
 					}
 				?>

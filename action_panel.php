@@ -61,7 +61,7 @@ $ship = $master->GetShipInstance();
 			<p>
 				<input type="hidden" name="id_game" value="<?php echo $master->id_game; ?>">
 				<input type="hidden" name="id_ship" value="<?php echo $master->current_ship; ?>">
-				<input type="hidden" name="action" value="move">
+				<input type="hidden" name="action" value="fire">
 				<button type="submit" class="btn-img"><img src="/img/fire.png" style="transform: rotate(270deg)" alt="Tirer"></button>
 			</p>
 		</form>

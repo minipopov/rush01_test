@@ -4,7 +4,7 @@
  */
 abstract class Controller
 {
-	private	$_model;
+	protected	$_model;
 
 	function __construct($model)
 	{

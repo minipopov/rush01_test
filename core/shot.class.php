@@ -1,0 +1,8 @@
+<?php
+/**
+ * Shot
+ */
+class Shot
+{
+
+}

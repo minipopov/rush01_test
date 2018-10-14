@@ -12,18 +12,21 @@ class Rock implements Igameobject, Icollider
 	];
 
 	public $x;
+	public $destroy = False;
 	public $y;
+	public $master;
 	public $type;
 
-	function __construct($data)
+	function __construct($master, $data)
 	{
+		$this->master = $master;
 		if (!isset($data["x"]))
 			throw new \Exception("Rock error instantiate: no x", 1);
 		if (!isset($data["y"]))
 			throw new \Exception("Rock error instantiate: no y", 1);
-		$this->x = $data["x"];
-		$this->y = $data["y"];
-		$this->type = $data["type"];
+
+		foreach ($data as $key => $value)
+			$this->$key = $value;
 	}
 
 	public function exportCollider(&$cases)
@@ -34,6 +37,11 @@ class Rock implements Igameobject, Icollider
 	public function onCollider($gameobject)
 	{
 		// code...
+	}
+
+	public function onShoot($shot)
+	{
+		return true;
 	}
 
 	public function __toString()
@@ -48,6 +56,11 @@ class Rock implements Igameobject, Icollider
 
 	public function update()
 	{
-		// code...
+		if ($this->destroy == true)
+		{
+			$this->master->model->delete("rocks", [
+				"id"	=>	$this->id
+			]);
+		}
 	}
 }

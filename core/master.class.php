@@ -36,7 +36,7 @@ class Master
 			$this->$key = $value;
 		}
 		//detection des fin de tour destruction etc...
-		$this->_map = new Map($gameId);
+		$this->_map = new Map($gameId, $this->model);
 	}
 
 	public function spawnShip($id_owner, $type)
@@ -125,7 +125,7 @@ class Master
 		$rocks = $this->model->select("rocks");
 		foreach ($rocks as $key => $value)
 		{
-			$this->_rocks[] = new Rock($value);
+			$this->_rocks[] = new Rock($this, $value);
 		}
 	}
 
